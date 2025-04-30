@@ -1,5 +1,9 @@
 from flask import Flask, render_template, request, jsonify
-import random
+import os
+
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host="0.0.0.0", port=port)
 
 app = Flask(__name__)
 
@@ -37,6 +41,3 @@ def check_solution():
 
     solution_exists = solve(numbers)
     return jsonify({"solution_exists": solution_exists})
-
-if __name__ == "__main__":
-    app.run(debug=True)
