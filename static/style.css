@@ -1,0 +1,237 @@
+body {
+    font-family: sans-serif;
+    text-align: center;
+    padding: 40px;
+    background-color: #f9f9f9;
+}
+
+/* Main game container */
+#game-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 500px;
+}
+
+#undo-button {
+    margin-top: 10px;
+    font-size: 18px;
+    background-color: #f05e5e;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.1s ease;
+}
+
+#undo-button:hover {
+    transform: scale(1.05);
+}
+
+/* Grid layout: 2x2 number slots */
+#number-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 140px);
+    grid-template-rows: repeat(2, 140px);
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    margin: 30px auto;
+    min-height: 280px;
+}
+
+/* Number box container */
+.number-slot {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 💜 Big Purple Number Boxes */
+.number {
+    font-family: "AppleGothic", sans-serif;
+    font-size: 40px;
+    width: 120px;
+    height: 120px;
+    border-radius: 20px;
+    border: 3px solid #6b5bff;
+    color: #6b5bff;
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    background-color: white;
+    transition: transform 0.1s ease;
+}
+
+.number.selected {
+    background-color: #6b5bff;
+    color: white;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.number:hover {
+    transform: scale(1.05);
+}
+
+/* 💚 Operator Row */
+#operator-row {
+    display: flex;
+    justify-content: center;
+    flex-wrap: nowrap;
+    gap: 20px;
+}
+
+/* 💚 Operator Buttons */
+.operator {
+    font-size: 24px;
+    width: 60px;
+    height: 60px;
+    aspect-ratio: 1 / 1;
+    border-radius: 12px;
+    border: 3px solid #5EC269;
+    color: #5EC269;
+    background-color: white;
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    transition: transform 0.1s ease;
+}
+
+.operator.selected {
+    background-color: #5EC269;
+    color: white;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.operator:hover {
+    transform: scale(1.05);
+}
+
+/* 🎉 Win Message */
+#win-message {
+    font-size: 42px;
+    color: #6b5bff;
+    font-weight: bold;
+    margin-top: 40px;
+    text-align: center;
+    animation: fadeInBounce 0.6s ease-out;
+    text-shadow: 2px 2px 8px rgba(107, 91, 255, 0.6);
+}
+
+/* Animation: fade in + bounce */
+@keyframes fadeInBounce {
+    0%   { opacity: 0; transform: scale(0.5); }
+    60%  { opacity: 1; transform: scale(1.15); }
+    100% { transform: scale(1); }
+}
+
+/* Container to hold both top buttons side-by-side */
+.top-button-row {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+/* Shared style for both top buttons */
+.top-button-row button {
+    font-size: 18px;
+    width: 160px;
+    height: 48px;
+    padding: 0;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.1s ease;
+}
+
+/* Shared hover effect */
+.top-button-row button:hover {
+    transform: scale(1.05);
+}
+
+/* 🎮 Specific button colors */
+#new-game-button {
+    background-color: #6b5bff;
+}
+
+#solution-button {
+    background-color: #f4a629;
+}
+
+#invalid-result {
+    position: absolute;
+    top: 120px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #e74c3c;
+    color: white;
+    font-size: 42px;
+    font-weight: bold;
+    width: 120px;
+    height: 120px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.3);
+    animation: popAndFade 1s ease-out forwards;
+    z-index: 10;
+}
+
+@keyframes popAndFade {
+    0% {
+        opacity: 0;
+        transform: translateX(-50%) scale(0.5);
+    }
+    30% {
+        opacity: 1;
+        transform: translateX(-50%) scale(1.2);
+    }
+    70% {
+        transform: translateX(-50%) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(-50%) scale(0.9);
+    }
+}
+
+.invalid-result {
+    background-color: #e74c3c !important;
+    color: white !important;
+    border: 3px solid #e74c3c !important;
+    animation: flashInvalid 1.25s ease forwards;
+}
+
+@keyframes flashInvalid {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    30% {
+        transform: scale(1.15);
+        opacity: 1;
+    }
+    70% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}

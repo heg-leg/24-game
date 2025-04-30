@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>24 Game</title>
+        <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    </head>
+<body>
+    <h1>🧠 Make 24</h1>
+
+    <div class="top-button-row">
+        <button id="new-game-button" onclick="window.location.reload()">🔄 New Game</button>
+        <button id="solution-button" onclick="checkIfSolvable()">🔍 Solution</button>
+    </div>
+
+    <div id="game-container">
+        <div id="number-grid">
+            {% for i in range(4) %}
+            <div class="number-slot">
+                {% if numbers[i] is defined %}
+                <div class="number" onclick="selectNumber(this)">{{ numbers[i] }}</div>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+
+        <div id="operator-row">
+            <div class="operator" onclick="selectOperator(this)">+</div>
+            <div class="operator" onclick="selectOperator(this)">−</div>
+            <div class="operator" onclick="selectOperator(this)">×</div>
+            <div class="operator" onclick="selectOperator(this)">÷</div>
+        </div>
+
+        <button id="-button" onclick="undoMove()">⤺ Undo</button>
+    </div> <!-- end of game-container -->
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
